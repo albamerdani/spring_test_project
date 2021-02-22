@@ -62,6 +62,7 @@ public class PunonjesCRUD {
 
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deletePunonjes(@PathVariable("idPunonjes") String id) {
+        if(!punonjesRepo.containsKey(id))throw new ExceptionController();
         punonjesRepo.remove(id);
         logger.info("Punonjes is deleted successsfully");
         return new ResponseEntity<>("Punonjes is deleted successsfully", HttpStatus.OK);

@@ -50,6 +50,7 @@ public class DepartamentCRUD {
 
     @RequestMapping(value = "/Departament/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateDepartament(@PathVariable("idDepartament") String id, @RequestBody Departament dep) {
+        if(!depRepo.containsKey(id))throw new ExceptionController();
         depRepo.remove(id);
         dep.setIdDepartament(id);
         depRepo.put(id, dep);
@@ -59,6 +60,7 @@ public class DepartamentCRUD {
 
     @RequestMapping(value = "/Departament/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteDepartament(@PathVariable("idDepartament") String id) {
+        if(!depRepo.containsKey(id))throw new ExceptionController();
         depRepo.remove(id);
         logger.info("Departament is deleted successfully");
         return new ResponseEntity<>("Departament is deleted successsfully", HttpStatus.OK);
