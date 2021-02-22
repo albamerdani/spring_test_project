@@ -2,6 +2,8 @@ package springboot_project.test.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import springboot_project.test.model.Departament;
 import springboot_project.test.model.Punonjes;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +22,18 @@ public class PunonjesCRUD {
 
     private static Map<String, Punonjes> punonjesRepo = new HashMap<>();
     static {
+
+        Departament dep = new Departament();
+
+        DepartamentCRUD depCrud = new DepartamentCRUD();
+
         Punonjes p1 = new Punonjes();
         p1.setIdPunonjes("1");
         p1.setName("Alba");
         p1.setGender("Femer");
         p1.setEmail("alba@gmail.com");
         p1.setAddress("Adrese");
+        p1.setDepartament((Departament) depCrud.getDepartament("1", dep));
         punonjesRepo.put(p1.getIdPunonjes(), p1);
 
         Punonjes p2 = new Punonjes();
@@ -34,6 +42,7 @@ public class PunonjesCRUD {
         p2.setGender("Mashkull");
         p2.setEmail("punonjes2@gmail.com");
         p2.setAddress("Adresa 2");
+        p1.setDepartament((Departament) depCrud.getDepartament("2", dep));
         punonjesRepo.put(p2.getIdPunonjes(), p2);
     }
 

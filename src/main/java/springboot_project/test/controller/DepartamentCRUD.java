@@ -35,20 +35,29 @@ public class DepartamentCRUD {
         depRepo.put(dep2.getIdDepartament(), dep2);
     }
 
-    @RequestMapping(value = "/Departament", method = RequestMethod.POST)
+    @RequestMapping(value = "/departament", method = RequestMethod.POST)
     public ResponseEntity<Object> createDepartament(@RequestBody Departament dep) {
         depRepo.put(dep.getIdDepartament(), dep);
         logger.info("Departament is created successfully");
         return new ResponseEntity<>("Departament is created successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/Departament")
-    public ResponseEntity<Object> getDepartament() {
+    @RequestMapping(value = "/departament")
+    public ResponseEntity<Object> getDepartaments() {
         logger.info("Departament information is gotten successfully");
         return new ResponseEntity<>(depRepo.values(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/Departament/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/departament/{id}", method = RequestMethod.GET)
+    public Object getDepartament(@PathVariable("idDepartament") String id, @RequestBody Departament dep) {
+        if(!depRepo.containsKey(id))throw new ExceptionController();
+        dep.setIdDepartament(id);
+        depRepo.get(dep);
+        logger.info("Departament information is gotten successfully");
+        return new ResponseEntity<>(depRepo.get(dep), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/departament/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateDepartament(@PathVariable("idDepartament") String id, @RequestBody Departament dep) {
         if(!depRepo.containsKey(id))throw new ExceptionController();
         depRepo.remove(id);
@@ -58,7 +67,7 @@ public class DepartamentCRUD {
         return new ResponseEntity<>("Departament is updated successsfully", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/Departament/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/departament/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteDepartament(@PathVariable("idDepartament") String id) {
         if(!depRepo.containsKey(id))throw new ExceptionController();
         depRepo.remove(id);

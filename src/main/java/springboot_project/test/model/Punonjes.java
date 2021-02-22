@@ -52,12 +52,12 @@ public class Punonjes {
     public void setAddress(String address) {
         this.address = address;
     }
-/*
+
     public Departament getDepartament() {
         return departament;
     }
 
     public void setDepartament(Departament departament) {
         this.departament = departament;
-    }*/
+    }
 }
