@@ -33,7 +33,7 @@ public class PunonjesCRUD {
         p1.setGender("Femer");
         p1.setEmail("alba@gmail.com");
         p1.setAddress("Adrese");
-        p1.setDepartament((Departament) depCrud.getDepartament("1", dep));
+        //p1.setDepartament(depCrud.getDepartament("1", dep));
         punonjesRepo.put(p1.getIdPunonjes(), p1);
 
         Punonjes p2 = new Punonjes();
@@ -42,7 +42,7 @@ public class PunonjesCRUD {
         p2.setGender("Mashkull");
         p2.setEmail("punonjes2@gmail.com");
         p2.setAddress("Adresa 2");
-        p1.setDepartament((Departament) depCrud.getDepartament("2", dep));
+        //p2.setDepartament(depCrud.getDepartament("2", dep));
         punonjesRepo.put(p2.getIdPunonjes(), p2);
     }
 
