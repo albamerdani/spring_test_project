@@ -24,7 +24,7 @@ public class SwaggerConfig {
         Parameter authHeader = new ParameterBuilder()
                 .parameterType("header")
                 .name("No Auth")
-                //.modelRef(new ModelRef("string"))
+                .modelRef(new ModelRef("string"))
                 .build();
 
         return new Docket(DocumentationType.SWAGGER_2)
