@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
         Parameter authHeader = new ParameterBuilder()
                 .parameterType("header")
-                .name("No Auth")
+                .name("Basic Auth")
                 .modelRef(new ModelRef("string"))
                 .build();
 
@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(Predicates.not(PathSelectors.regex("/error")))
-                .paths(Predicates.not(PathSelectors.regex("/manage.*")))
+                //.paths(Predicates.not(PathSelectors.regex("/manage.*")))
                 .build()
                 .globalOperationParameters(Collections.singletonList(authHeader))
                 .pathMapping("/");

@@ -20,7 +20,7 @@ public class ControllerTest extends springboot_project.test.Test {
 
         @Test
         public void getPunonjesList() throws Exception {
-            String uri = "/punonjes";
+            String uri = "http://localhost:8080/punonjes";
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                     .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -33,7 +33,7 @@ public class ControllerTest extends springboot_project.test.Test {
 
         @Test
         public void createPunonjes() throws Exception {
-            String uri = "/punonjes";
+            String uri = "http://localhost:8080/punonjes";
             Punonjes punonjes = new Punonjes();
             punonjes.setIdPunonjes("3");
             punonjes.setName("Test");
@@ -53,7 +53,7 @@ public class ControllerTest extends springboot_project.test.Test {
 
         @Test
         public void updatePunonjes() throws Exception {
-            String uri = "/punonjes/2";
+            String uri = "http://localhost:8080/punonjes/2";
             Punonjes punonjes = new Punonjes();
             punonjes.setName("TestUpdate");
             String inputJson = super.mapToJson(punonjes);
@@ -69,7 +69,7 @@ public class ControllerTest extends springboot_project.test.Test {
 
         @Test
         public void deletePunonjes() throws Exception {
-            String uri = "/punonjes/2";
+            String uri = "http://localhost:8080/punonjes/2";
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);
