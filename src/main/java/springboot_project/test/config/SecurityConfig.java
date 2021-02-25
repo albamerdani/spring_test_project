@@ -16,14 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             http
                     .authorizeRequests()
                     .antMatchers("/", "/punonjes", "/departament").permitAll()
-                    .anyRequest().authenticated();
-                    //.and()
-                    //.formLogin()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
                     //.loginPage("/login")
-                    //.permitAll()
-                    //.and()
-                    //.logout()
-                    //.permitAll();
+                    .permitAll()
+                    .and()
+                    .logout()
+                    .permitAll();
         }
 
         @Autowired
