@@ -1,16 +1,24 @@
 package springboot_project.test.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.springframework.beans.factory.annotation.Autowired;
-
+@Entity
 public class Punonjes {
 
+    @Id
+    @GeneratedValue
     private String idPunonjes;
+
     private String name;
+
     private String gender;
+
     private String email;
+
     private String address;
 
-    @Autowired
+    @ManyToOne
+    @JoinColumn(name="idDepartament")
     private Departament departament;
 
     public String getIdPunonjes() {

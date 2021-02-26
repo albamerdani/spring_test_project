@@ -1,10 +1,15 @@
 package springboot_project.test.model;
 
+import java.util.List;
+
 public class Departament {
 
     private String idDepartament;
     private String nameDepartament;
     private String description;
+
+    @OneToMany
+    private List<Punonjes> punonjesList;
 
     public String getIdDepartament() {
         return idDepartament;
