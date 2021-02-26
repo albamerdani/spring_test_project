@@ -1,15 +1,23 @@
 package springboot_project.test.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "departament")
 public class Departament {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "idDepartament")
     private String idDepartament;
+
     private String nameDepartament;
+
     private String description;
 
-    @OneToMany
-    private List<Punonjes> punonjesList;
+    //@OneToMany(mappedBy = "departament")
+    //private List<Punonjes> punonjesList;
 
     public String getIdDepartament() {
         return idDepartament;

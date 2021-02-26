@@ -2,58 +2,108 @@ package springboot_project.test.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot_project.test.config.SecurityConfig;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import springboot_project.test.model.Departament;
 import springboot_project.test.model.Punonjes;
+import springboot_project.test.repository.DepartamentRepository;
+import springboot_project.test.repository.PunonjesRepository;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class PunonjesCRUD {
 
     private static final Logger logger = LoggerFactory.getLogger(PunonjesCRUD.class);
 
-    private static Map<String, Punonjes> punonjesRepo = new HashMap<>();
-    static {
+    private final PunonjesRepository punonjesRepository;
+    private final DepartamentRepository departamentRepository;
 
-        Departament dep = new Departament();
-
-        DepartamentCRUD depCrud = new DepartamentCRUD();
-
-        Punonjes p1 = new Punonjes();
-        p1.setIdPunonjes("1");
-        p1.setName("Alba");
-        p1.setGender("Femer");
-        p1.setEmail("alba@gmail.com");
-        p1.setAddress("Adrese");
-        //p1.setDepartament((Departament) depCrud.getDepartament("1", dep));
-        punonjesRepo.put(p1.getIdPunonjes(), p1);
-
-        Punonjes p2 = new Punonjes();
-        p2.setIdPunonjes("2");
-        p2.setName("Punonjes 2");
-        p2.setGender("Mashkull");
-        p2.setEmail("punonjes2@gmail.com");
-        p2.setAddress("Adresa 2");
-        //p2.setDepartament((Departament) depCrud.getDepartament("2", dep));
-        punonjesRepo.put(p2.getIdPunonjes(), p2);
+    @Autowired
+    public PunonjesCRUD(PunonjesRepository punonjesRepository, DepartamentRepository departamentRepository) {
+        this.punonjesRepository = punonjesRepository;
+        this.departamentRepository = departamentRepository;
     }
+
     @Value("${spring.security.user.name}")
     private String username;
     @Value("${spring.security.user.password}")
     private String password;
 
+
     @RequestMapping(value = "/punonjes", method = RequestMethod.POST)
-    @GetMapping("/createPunonjes")
+    @PostMapping("/createPunonjes")
+    //@PostMapping
+    public ResponseEntity<Punonjes> create(@RequestBody @Valid Punonjes p) {
+        Optional<Departament> optDep = departamentRepository.findById(p.getDepartament().getIdDepartament());
+        if (!optDep.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        p.setDepartament(optDep.get());
+
+        Punonjes savedPunonjes= punonjesRepository.save(p);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedPunonjes.getIdPunonjes()).toUri();
+
+        return ResponseEntity.created(location).body(savedPunonjes);
+    }
+
+
+
+    @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.PUT)
+    //@PutMapping("/updatePunonjes")
+    @PutMapping("/{id}")
+    public ResponseEntity<Punonjes> update(@RequestBody @Valid Punonjes p, @PathVariable String id) {
+        Optional<Departament> optDep = departamentRepository.findById(p.getDepartament().getIdDepartament());
+        if (!optDep.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        Optional<Punonjes> optPun = punonjesRepository.findById(id);
+        if (!optPun.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        p.setDepartament(optDep.get());
+        p.setIdPunonjes(optPun.get().getIdPunonjes());
+        punonjesRepository.save(p);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.DELETE)
+    //@DeleteMapping("/deletePunonjes")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Punonjes> delete(@PathVariable String id) {
+        Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
+        if (!optionalPunonjes.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        punonjesRepository.delete(optionalPunonjes.get());
+
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
+    public ResponseEntity<Punonjes> getById(@PathVariable String id) {
+        Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
+        if (!optionalPunonjes.isPresent()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        return ResponseEntity.ok(optionalPunonjes.get());
+    }
+
+    /*
     public ResponseEntity<Object> createPunonjes(HttpServletRequest request, @RequestBody Punonjes pun) throws ServletException {
         //request.login(username, password);
         request.getHeader("Authorization");
@@ -61,6 +111,7 @@ public class PunonjesCRUD {
         logger.info("Punonjes is created successfully");
         return new ResponseEntity<>("Punonjes is created successfully", HttpStatus.CREATED);
     }
+
 
     @RequestMapping(value = "/punonjes", method = RequestMethod.GET)
     @GetMapping("/getPunonjes")
@@ -91,5 +142,6 @@ public class PunonjesCRUD {
         logger.info("Punonjes is deleted successsfully");
         return new ResponseEntity<>("Punonjes is deleted successsfully", HttpStatus.OK);
     }
+*/
 
 }

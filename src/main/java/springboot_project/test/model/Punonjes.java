@@ -2,11 +2,16 @@ package springboot_project.test.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+
 @Entity
+@Table(name = "punonjes")
 public class Punonjes {
 
     @Id
     @GeneratedValue
+    @Column(name = "idPunonjes")
     private String idPunonjes;
 
     private String name;
