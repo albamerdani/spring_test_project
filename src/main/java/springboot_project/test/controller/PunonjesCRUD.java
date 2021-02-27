@@ -59,7 +59,7 @@ public class PunonjesCRUD {
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.PUT)
     //@PutMapping("/updatePunonjes")
     @PutMapping("/{id}")
-    public ResponseEntity<Punonjes> update(@RequestBody @Valid Punonjes p, @PathVariable String id) {
+    public ResponseEntity<Punonjes> update(@RequestBody @Valid Punonjes p, @PathVariable Integer id) {
         Optional<Departament> optDep = departamentRepository.findById(p.getDepartament().getIdDepartament());
         if (!optDep.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -80,7 +80,7 @@ public class PunonjesCRUD {
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.DELETE)
     //@DeleteMapping("/deletePunonjes")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Punonjes> delete(@PathVariable String id) {
+    public ResponseEntity<Punonjes> delete(@PathVariable Integer id) {
         Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
         if (!optionalPunonjes.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -94,7 +94,7 @@ public class PunonjesCRUD {
 
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Punonjes> getById(@PathVariable String id) {
+    public ResponseEntity<Punonjes> getById(@PathVariable Integer id) {
         Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
         if (!optionalPunonjes.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();

@@ -10,9 +10,9 @@ import javax.persistence.*;
 public class Punonjes {
 
     @Id
-    @GeneratedValue
-    @Column(name = "idPunonjes")
-    private String idPunonjes;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_punonjes")
+    private Integer idPunonjes;
 
     private String name;
 
@@ -23,14 +23,23 @@ public class Punonjes {
     private String address;
 
     @ManyToOne
-    @JoinColumn(name="idDepartament")
+    @JoinColumn(name="id_departament")
     private Departament departament;
 
-    public String getIdPunonjes() {
+    public Punonjes(Integer idPunonjes, String name, String gender, String email, String address, Departament departament) {
+        this.idPunonjes = idPunonjes;
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.address = address;
+        this.departament = departament;
+    }
+
+    public Integer getIdPunonjes() {
         return idPunonjes;
     }
 
-    public void setIdPunonjes(String idPunonjes) {
+    public void setIdPunonjes(Integer idPunonjes) {
         this.idPunonjes = idPunonjes;
     }
 

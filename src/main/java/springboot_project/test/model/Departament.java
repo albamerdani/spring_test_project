@@ -8,9 +8,9 @@ import java.util.List;
 public class Departament {
 
     @Id
-    @GeneratedValue
-    @Column(name = "idDepartament")
-    private String idDepartament;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_departament")
+    private Integer idDepartament;
 
     private String nameDepartament;
 
@@ -19,11 +19,18 @@ public class Departament {
     //@OneToMany(mappedBy = "departament")
     //private List<Punonjes> punonjesList;
 
-    public String getIdDepartament() {
+
+    public Departament(Integer idDepartament, String nameDepartament, String description) {
+        this.idDepartament = idDepartament;
+        this.nameDepartament = nameDepartament;
+        this.description = description;
+    }
+
+    public Integer getIdDepartament() {
         return idDepartament;
     }
 
-    public void setIdDepartament(String idDepartament) {
+    public void setIdDepartament(Integer idDepartament) {
         this.idDepartament = idDepartament;
     }
 

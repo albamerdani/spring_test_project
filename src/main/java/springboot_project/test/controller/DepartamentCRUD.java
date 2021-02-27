@@ -49,7 +49,7 @@ public class DepartamentCRUD {
 
     @RequestMapping(value = "/departament/{id}", method = RequestMethod.PUT)
     @PutMapping("/updateDepartament")
-    public ResponseEntity<Departament> updateDepartament(@PathVariable String id, @Valid @RequestBody Departament dep) {
+    public ResponseEntity<Departament> updateDepartament(@PathVariable Integer id, @Valid @RequestBody Departament dep) {
         Optional<Departament> depart = departamentRepository.findById(id);
         if (!depart.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -63,7 +63,7 @@ public class DepartamentCRUD {
     @RequestMapping(value = "/departament/{id}", method = RequestMethod.DELETE)
     //@DeleteMapping("/deleteDepartament")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Departament> deleteDepartament(@PathVariable String id) {
+    public ResponseEntity<Departament> deleteDepartament(@PathVariable Integer id) {
         Optional<Departament> depart = departamentRepository.findById(id);
         if (!depart.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -78,7 +78,7 @@ public class DepartamentCRUD {
     @RequestMapping(value = "/departament/{id}", method = RequestMethod.GET)
     @GetMapping("/getDepartament")
     //@GetMapping("/{id}")
-    public ResponseEntity<Departament> getById(@PathVariable String id) {
+    public ResponseEntity<Departament> getById(@PathVariable Integer id) {
         Optional<Departament> optionalDepartament = departamentRepository.findById(id);
         if (!optionalDepartament.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
