@@ -39,9 +39,11 @@ public class DepartamentCRUD {
     @RequestMapping(value = "/departament", method = RequestMethod.POST)
     @PostMapping("/createDepartament")
     public ResponseEntity<Departament> createDepartament(@Valid @RequestBody Departament dep) {
+        logger.info("Starting to create department");
         Departament savedDep = departamentRepository.save(dep);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedDep.getIdDepartament()).toUri();
+        logger.info("Department is created");
 
         return ResponseEntity.created(location).body(savedDep);
     }
@@ -50,12 +52,14 @@ public class DepartamentCRUD {
     @RequestMapping(value = "/departament/{id}", method = RequestMethod.PUT)
     @PutMapping("/updateDepartament")
     public ResponseEntity<Departament> updateDepartament(@PathVariable Integer id, @Valid @RequestBody Departament dep) {
+        logger.info("Starting to update department");
         Optional<Departament> depart = departamentRepository.findById(id);
         if (!depart.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
         dep.setIdDepartament(depart.get().getIdDepartament());
         departamentRepository.save(dep);
+        logger.info("Department is updated");
 
         return ResponseEntity.noContent().build();
     }
@@ -64,6 +68,7 @@ public class DepartamentCRUD {
     //@DeleteMapping("/deleteDepartament")
     @DeleteMapping("/{id}")
     public ResponseEntity<Departament> deleteDepartament(@PathVariable Integer id) {
+        logger.info("Starting to delete department");
         Optional<Departament> depart = departamentRepository.findById(id);
         if (!depart.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -71,6 +76,7 @@ public class DepartamentCRUD {
 
         punonjesRepository.deleteByDepartamentId(depart.get().getIdDepartament());
         departamentRepository.delete(depart.get());
+        logger.info("Department is deleted");
 
         return ResponseEntity.noContent().build();
     }
@@ -79,6 +85,7 @@ public class DepartamentCRUD {
     @GetMapping("/getDepartament")
     //@GetMapping("/{id}")
     public ResponseEntity<Departament> getById(@PathVariable Integer id) {
+        logger.info("Starting to get department details");
         Optional<Departament> optionalDepartament = departamentRepository.findById(id);
         if (!optionalDepartament.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();

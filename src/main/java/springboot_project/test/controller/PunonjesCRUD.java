@@ -29,17 +29,19 @@ public class PunonjesCRUD {
         this.punonjesRepository = punonjesRepository;
         this.departamentRepository = departamentRepository;
     }
+/*
 
     @Value("${spring.security.user.name}")
     private String username;
     @Value("${spring.security.user.password}")
     private String password;
+*/
 
 
     @RequestMapping(value = "/punonjes", method = RequestMethod.POST)
     @PostMapping("/createPunonjes")
-    //@PostMapping
     public ResponseEntity<Punonjes> create(@RequestBody @Valid Punonjes p) {
+        logger.info("Starting to create employee");
         Optional<Departament> optDep = departamentRepository.findById(p.getDepartament().getIdDepartament());
         if (!optDep.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -50,6 +52,7 @@ public class PunonjesCRUD {
         Punonjes savedPunonjes= punonjesRepository.save(p);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedPunonjes.getIdPunonjes()).toUri();
+        logger.info("Employee is created");
 
         return ResponseEntity.created(location).body(savedPunonjes);
     }
@@ -60,6 +63,7 @@ public class PunonjesCRUD {
     //@PutMapping("/updatePunonjes")
     @PutMapping("/{id}")
     public ResponseEntity<Punonjes> update(@RequestBody @Valid Punonjes p, @PathVariable Integer id) {
+        logger.info("Starting to update employee");
         Optional<Departament> optDep = departamentRepository.findById(p.getDepartament().getIdDepartament());
         if (!optDep.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -74,6 +78,8 @@ public class PunonjesCRUD {
         p.setIdPunonjes(optPun.get().getIdPunonjes());
         punonjesRepository.save(p);
 
+        logger.info("Employee is updated");
+
         return ResponseEntity.noContent().build();
     }
 
@@ -81,12 +87,14 @@ public class PunonjesCRUD {
     //@DeleteMapping("/deletePunonjes")
     @DeleteMapping("/{id}")
     public ResponseEntity<Punonjes> delete(@PathVariable Integer id) {
+        logger.info("Starting to delete employee");
         Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
         if (!optionalPunonjes.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
 
         punonjesRepository.delete(optionalPunonjes.get());
+        logger.info("Employee is deleted");
 
         return ResponseEntity.noContent().build();
     }
@@ -95,6 +103,7 @@ public class PunonjesCRUD {
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.GET)
     @GetMapping("/{id}")
     public ResponseEntity<Punonjes> getById(@PathVariable Integer id) {
+        logger.info("Starting to get employee details");
         Optional<Punonjes> optionalPunonjes = punonjesRepository.findById(id);
         if (!optionalPunonjes.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
@@ -122,7 +131,7 @@ public class PunonjesCRUD {
     }
 
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.PUT)
-    @GetMapping("/updatePunonjes")
+    @PutMapping("/updatePunonjes")
     public ResponseEntity<Object> updatePunonjes(HttpServletRequest request, @PathVariable("idPunonjes") String id, @RequestBody Punonjes pun) {
         request.getHeader("Authorization");
         if(!punonjesRepo.containsKey(id))throw new ExceptionController();
@@ -134,7 +143,7 @@ public class PunonjesCRUD {
     }
 
     @RequestMapping(value = "/punonjes/{id}", method = RequestMethod.DELETE)
-    @GetMapping("/deletePunonjes")
+    @DeleteMapping("/deletePunonjes")
     public ResponseEntity<Object> deletePunonjes(HttpServletRequest request, @PathVariable("idPunonjes") String id) {
         request.getHeader("Authorization");
         if(!punonjesRepo.containsKey(id))throw new ExceptionController();

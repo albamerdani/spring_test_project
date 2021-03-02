@@ -16,5 +16,5 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/OT-INF/classes /app
 EXPOSE 8080
-#ENTRYPOINT ["java","-cp","app:app/lib/*","springboot_project.Application"]
+#ENTRYPOINT ["java","-cp","app:app/lib/*","springboot_project-0.0.1-SNAPSHOT.jar"]
 ENTRYPOINT ["java", "-jar", "/app/target/dependency/springboot_project-0.0.1-SNAPSHOT.jar"]
