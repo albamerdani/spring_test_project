@@ -1,4 +1,4 @@
-package springboot_project.test.config;
+package springbootproject.test.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;

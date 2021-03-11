@@ -1,16 +1,15 @@
-package springboot_project.test.controller;
+package springbootproject.test.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import springboot_project.test.model.Departament;
-import springboot_project.test.model.Punonjes;
-import springboot_project.test.repository.DepartamentRepository;
-import springboot_project.test.repository.PunonjesRepository;
+import springbootproject.test.model.Departament;
+import springbootproject.test.model.Punonjes;
+import springbootproject.test.repository.DepartamentRepository;
+import springbootproject.test.repository.PunonjesRepository;
 
 import javax.validation.Valid;
 import java.net.URI;

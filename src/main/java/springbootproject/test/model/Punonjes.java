@@ -1,7 +1,4 @@
-package springboot_project.test.model;
-
-import com.fasterxml.jackson.annotation.JsonTypeId;
-import org.springframework.beans.factory.annotation.Autowired;
+package springbootproject.test.model;
 
 import javax.persistence.*;
 

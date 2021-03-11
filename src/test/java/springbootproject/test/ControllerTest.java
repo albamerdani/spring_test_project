@@ -1,4 +1,4 @@
-package springboot_project.test;
+package springbootproject.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,10 +8,10 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import springboot_project.test.model.Departament;
-import springboot_project.test.model.Punonjes;
+import springbootproject.test.model.Departament;
+import springbootproject.test.model.Punonjes;
 
-public class ControllerTest extends springboot_project.test.Test {
+public class ControllerTest extends springbootproject.test.Test {
 
         @Override
         @Before

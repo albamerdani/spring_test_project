@@ -1,4 +1,4 @@
-package springboot_project.test;
+package springbootproject.test;
 
 import java.io.IOException;
 import org.junit.runner.RunWith;

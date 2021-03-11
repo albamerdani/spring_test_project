@@ -1,4 +1,4 @@
-package springboot_project.test.config;
+package springbootproject.test.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

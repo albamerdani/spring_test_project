@@ -1,10 +1,10 @@
-package springboot_project.test.repository;
+package springbootproject.test.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import springboot_project.test.model.Punonjes;
+import springbootproject.test.model.Punonjes;
 
 import javax.transaction.Transactional;
 

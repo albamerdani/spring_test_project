@@ -1,4 +1,4 @@
-package springboot_project.test.model;
+package springbootproject.test.model;
 
 import javax.persistence.*;
 import java.util.List;
